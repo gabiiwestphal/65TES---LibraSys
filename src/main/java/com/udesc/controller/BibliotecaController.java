@@ -79,9 +79,11 @@ public class BibliotecaController {
                     case 5:
                         System.out.print("Digite o ID do livro: ");
                         int idDetalhes = scanner.nextInt();
-                        scanner.nextLine();
-                        bibliotecaService.verDetalhesDoLivro(idDetalhes).ifPresentOrElse(System.out::println,
-                                () -> System.out.println("Livro não encontrado."));
+                        scanner.nextLine(); 
+                        bibliotecaService.verDetalhesDoLivro(idDetalhes).ifPresentOrElse(
+                            tituloLivro -> System.out.println("Título do livro: " + tituloLivro),
+                            () -> System.out.println("Livro não encontrado.")
+                        );
                         break;
 
                     case 6:

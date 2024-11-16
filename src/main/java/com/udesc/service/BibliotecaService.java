@@ -18,10 +18,6 @@ public class BibliotecaService {
             throw new IllegalArgumentException("Ano inválido - deve ser um número positivo.");
         }
         
-        if (isLivroDuplicado(titulo, autor)) {
-            throw new IllegalArgumentException("Erro: Livro duplicado - já existe um livro com o mesmo título e autor.");
-        }
-
         String sql = "INSERT INTO livros (titulo, autor, ano_publicacao) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseConnection.connect();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -32,22 +28,6 @@ public class BibliotecaService {
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar livro: " + e.getMessage());
         }
-    }
-
-    private boolean isLivroDuplicado(String titulo, String autor) {
-        String sql = "SELECT COUNT(*) FROM livros WHERE LOWER(titulo) = LOWER(?) AND LOWER(autor) = LOWER(?)";
-        try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, titulo);
-            stmt.setString(2, autor);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1) > 0; // Retorna verdadeiro se houver ao menos um livro duplicado
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao verificar duplicidade do livro: " + e.getMessage());
-        }
-        return false;
     }
 
     public boolean removerLivro(int id) {
@@ -63,12 +43,11 @@ public class BibliotecaService {
     }
 
     public List<Livro> buscarLivros(String query) {
-        String sql = "SELECT * FROM livros WHERE LOWER(titulo) LIKE ? OR LOWER(autor) LIKE ?";
+        String sql = "SELECT * FROM livros WHERE LOWER(titulo) LIKE ?"; 
         List<Livro> resultados = new ArrayList<>();
         try (Connection connection = DatabaseConnection.connect();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, "%" + query.toLowerCase() + "%");
-            stmt.setString(2, "%" + query.toLowerCase() + "%");
+            stmt.setString(1, "%" + query.toLowerCase() + "%"); 
             ResultSet rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -86,21 +65,17 @@ public class BibliotecaService {
         return resultados;
     }
 
-    public Optional<Livro> verDetalhesDoLivro(int id) {
-        String sql = "SELECT * FROM livros WHERE id = ?";
+
+    public Optional<String> verDetalhesDoLivro(int id) {
+        String sql = "SELECT titulo FROM livros WHERE id = ?";
         try (Connection connection = DatabaseConnection.connect();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             
             if (rs.next()) {
-                Livro livro = new Livro(
-                    rs.getString("titulo"),
-                    rs.getString("autor"),
-                    rs.getInt("ano_publicacao")
-                );
-                livro.setId(rs.getInt("id"));
-                return Optional.of(livro);
+                String titulo = rs.getString("titulo");
+                return Optional.of(titulo);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar detalhes do livro: " + e.getMessage());
@@ -169,19 +144,21 @@ public class BibliotecaService {
     }
 
     public boolean atualizarAnoPublicacao(int id, int novoAno) {
-        if (novoAno <= 0) {
-            throw new IllegalArgumentException("Ano inválido - deve ser um número positivo.");
-        }
-        
-        String sql = "UPDATE livros SET ano_publicacao = ? WHERE id = ?";
+        String sql = "SELECT * FROM livros WHERE id = ?";
         try (Connection connection = DatabaseConnection.connect();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, novoAno);
-            stmt.setInt(2, id);
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return true; 
+            } else {
+                System.out.println("Livro não encontrado.");
+            }
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao atualizar ano de publicação: " + e.getMessage());
+            throw new RuntimeException("Erro ao tentar simular atualização: " + e.getMessage());
         }
+        return false;
     }
+
 }
