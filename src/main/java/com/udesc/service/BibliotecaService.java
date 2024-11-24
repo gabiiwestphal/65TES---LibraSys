@@ -14,21 +14,55 @@ import com.udesc.model.Livro;
 public class BibliotecaService {
 
 	public void adicionarLivro(String titulo, String autor, int ano) {
-        if (ano <= 0) {
-            throw new IllegalArgumentException("Ano inválido - deve ser um número positivo.");
-        }
-        
-        String sql = "INSERT INTO livros (titulo, autor, ano_publicacao) VALUES (?, ?, ?)";
-        try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, titulo);
-            stmt.setString(2, autor);
-            stmt.setInt(3, ano);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao adicionar livro: " + e.getMessage());
-        }
-    }
+	    // Validação de título vazio ou nulo
+	    if (titulo == null || titulo.trim().isEmpty()) {
+	        throw new IllegalArgumentException("Título inválido - não pode ser vazio.");
+	    }
+
+	    // Validação de autor vazio ou nulo
+	    if (autor == null || autor.trim().isEmpty()) {
+	        throw new IllegalArgumentException("Autor inválido - não pode ser vazio.");
+	    }
+
+	    // Validação do ano de publicação
+	    if (ano <= 0) {
+	        throw new IllegalArgumentException("Ano inválido - deve ser um número positivo.");
+	    }
+
+	    // Verificar se o livro já existe (título e autor iguais)
+	    if (isLivroDuplicado(titulo, autor)) {
+	        throw new IllegalArgumentException("Erro: Livro duplicado - já existe um livro com o mesmo título e autor.");
+	    }
+
+	    String sql = "INSERT INTO livros (titulo, autor, ano_publicacao) VALUES (?, ?, ?)";
+	    try (Connection connection = DatabaseConnection.connect();
+	         PreparedStatement stmt = connection.prepareStatement(sql)) {
+	        stmt.setString(1, titulo);
+	        stmt.setString(2, autor);
+	        stmt.setInt(3, ano);
+	        stmt.executeUpdate();
+	    } catch (SQLException e) {
+	        throw new RuntimeException("Erro ao adicionar livro: " + e.getMessage());
+	    }
+	}
+
+	// Método auxiliar para verificar duplicidade
+	private boolean isLivroDuplicado(String titulo, String autor) {
+	    String sql = "SELECT COUNT(*) FROM livros WHERE LOWER(titulo) = LOWER(?) AND LOWER(autor) = LOWER(?)";
+	    try (Connection connection = DatabaseConnection.connect();
+	         PreparedStatement stmt = connection.prepareStatement(sql)) {
+	        stmt.setString(1, titulo);
+	        stmt.setString(2, autor);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt(1) > 0; // Retorna true se já existe um livro duplicado
+	        }
+	    } catch (SQLException e) {
+	        throw new RuntimeException("Erro ao verificar duplicidade do livro: " + e.getMessage());
+	    }
+	    return false;
+	}
+
 
     public boolean removerLivro(int id) {
         String sql = "DELETE FROM livros WHERE id = ?";

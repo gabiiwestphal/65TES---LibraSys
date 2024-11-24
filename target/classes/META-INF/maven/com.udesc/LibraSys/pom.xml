@@ -48,6 +48,14 @@
 			<version>42.2.20</version> <!-- ou a versão mais recente -->
 		</dependency>
 
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.9.3</version> <!-- Verifique a última versão disponível -->
+			<scope>test</scope>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
