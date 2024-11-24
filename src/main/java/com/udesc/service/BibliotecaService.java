@@ -29,10 +29,10 @@ public class BibliotecaService {
 	        throw new IllegalArgumentException("Ano inválido - deve ser um número positivo.");
 	    }
 
-	    // Verificar se o livro já existe (título e autor iguais)
-	    if (isLivroDuplicado(titulo, autor)) {
-	        throw new IllegalArgumentException("Erro: Livro duplicado - já existe um livro com o mesmo título e autor.");
-	    }
+	    // Verificar se o livro já existe (comentar esta parte para simular falha)
+	    // if (isLivroDuplicado(titulo, autor)) {
+	    //     throw new IllegalArgumentException("Erro: Livro duplicado - já existe um livro com o mesmo título e autor.");
+	    // }
 
 	    String sql = "INSERT INTO livros (titulo, autor, ano_publicacao) VALUES (?, ?, ?)";
 	    try (Connection connection = DatabaseConnection.connect();
@@ -45,6 +45,7 @@ public class BibliotecaService {
 	        throw new RuntimeException("Erro ao adicionar livro: " + e.getMessage());
 	    }
 	}
+
 
 	// Método auxiliar para verificar duplicidade
 	private boolean isLivroDuplicado(String titulo, String autor) {
@@ -186,13 +187,12 @@ public class BibliotecaService {
 
             if (rs.next()) {
                 return true; 
-            } else {
-                System.out.println("Livro não encontrado.");
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao tentar simular atualização: " + e.getMessage());
         }
         return false;
     }
+
 
 }
