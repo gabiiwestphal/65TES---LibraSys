@@ -47,23 +47,22 @@ public class BibliotecaService {
 	}
 
 
-	// Método auxiliar para verificar duplicidade
-	private boolean isLivroDuplicado(String titulo, String autor) {
-	    String sql = "SELECT COUNT(*) FROM livros WHERE LOWER(titulo) = LOWER(?) AND LOWER(autor) = LOWER(?)";
-	    try (Connection connection = DatabaseConnection.connect();
-	         PreparedStatement stmt = connection.prepareStatement(sql)) {
-	        stmt.setString(1, titulo);
-	        stmt.setString(2, autor);
-	        ResultSet rs = stmt.executeQuery();
-	        if (rs.next()) {
-	            return rs.getInt(1) > 0; // Retorna true se já existe um livro duplicado
-	        }
-	    } catch (SQLException e) {
-	        throw new RuntimeException("Erro ao verificar duplicidade do livro: " + e.getMessage());
-	    }
-	    return false;
-	}
-
+//	// Método auxiliar para verificar duplicidade
+//	private boolean isLivroDuplicado(String titulo, String autor) {
+//	    String sql = "SELECT COUNT(*) FROM livros WHERE LOWER(titulo) = LOWER(?) AND LOWER(autor) = LOWER(?)";
+//	    try (Connection connection = DatabaseConnection.connect();
+//	         PreparedStatement stmt = connection.prepareStatement(sql)) {
+//	        stmt.setString(1, titulo);
+//	        stmt.setString(2, autor);
+//	        ResultSet rs = stmt.executeQuery();
+//	        if (rs.next()) {
+//	            return rs.getInt(1) > 0; // Retorna true se já existe um livro duplicado
+//	        }
+//	    } catch (SQLException e) {
+//	        throw new RuntimeException("Erro ao verificar duplicidade do livro: " + e.getMessage());
+//	    }
+//	    return false;
+//	}
 
     public boolean removerLivro(int id) {
         String sql = "DELETE FROM livros WHERE id = ?";

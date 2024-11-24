@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.udesc.libraSys.BibliotecaIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 2.077 s <<< FAILURE! -- in com.udesc.libraSys.BibliotecaIntegrationTest
+com.udesc.libraSys.BibliotecaIntegrationTest.testAtualizarAnoDePublicacaoExistente -- Time elapsed: 0.401 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: O banco deveria refletir o novo ano de publicação. ==> expected: <2021> but was: <2020>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:563)
+	at com.udesc.libraSys.BibliotecaIntegrationTest.testAtualizarAnoDePublicacaoExistente(BibliotecaIntegrationTest.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

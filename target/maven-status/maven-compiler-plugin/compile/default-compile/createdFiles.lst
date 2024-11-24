@@ -1,5 +1,4 @@
 com\udesc\controller\BibliotecaController.class
 com\udesc\model\Livro.class
 com\udesc\database\DatabaseConnection.class
-com\udesc\model\Biblioteca.class
 com\udesc\service\BibliotecaService.class

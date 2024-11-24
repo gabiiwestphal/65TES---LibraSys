@@ -1,0 +1,51 @@
+-------------------------------------------------------------------------------
+Test set: com.udesc.libraSys.BibliotecaServiceTest
+-------------------------------------------------------------------------------
+Tests run: 20, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 3.729 s <<< FAILURE! -- in com.udesc.libraSys.BibliotecaServiceTest
+com.udesc.libraSys.BibliotecaServiceTest.testAdicionarLivroDuplicado -- Time elapsed: 0.248 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at com.udesc.libraSys.BibliotecaServiceTest.testAdicionarLivroDuplicado(BibliotecaServiceTest.java:70)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+com.udesc.libraSys.BibliotecaServiceTest.testVerDetalhesDoLivro -- Time elapsed: 0.118 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Os detalhes do livro deveriam ser retornados. ==> expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:214)
+	at com.udesc.libraSys.BibliotecaServiceTest.testVerDetalhesDoLivro(BibliotecaServiceTest.java:117)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+com.udesc.libraSys.BibliotecaServiceTest.testAtualizarAnoDePublicacaoExistente -- Time elapsed: 0.211 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: O banco de dados não foi atualizado com o novo ano de publicação. ==> expected: <2021> but was: <2020>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:563)
+	at com.udesc.libraSys.BibliotecaServiceTest.testAtualizarAnoDePublicacaoExistente(BibliotecaServiceTest.java:144)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+com.udesc.libraSys.BibliotecaServiceTest.testBuscarLivroPorAutor -- Time elapsed: 0.100 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: O livro deveria ser encontrado. ==> expected: <1> but was: <0>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:563)
+	at com.udesc.libraSys.BibliotecaServiceTest.testBuscarLivroPorAutor(BibliotecaServiceTest.java:160)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
